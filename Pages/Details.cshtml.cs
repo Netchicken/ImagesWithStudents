@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ImagesWithStudents.Pages
 {
-    [BindProperties]
-    public class IndexModel : PageModel
+    public class DetailsModel : PageModel
     {
         //holds the selected image path
         public string? ImagePath { get; set; }
@@ -20,10 +18,7 @@ namespace ImagesWithStudents.Pages
         }
 
         //ctor runs when the class is accessed
-        public IndexModel()
-        {
 
-        }
         //run after the page is loaded or when the form is submitted
         public void OnPost()
         {
@@ -32,24 +27,6 @@ namespace ImagesWithStudents.Pages
 
         private List<string> _loadImages()
         {
-
-            //    ImagepathList = new List<string>()
-            //{
-            //    "photo1.jpg",
-            //    "photo2.jpg",
-            //    "photo3.jpg",
-            //    "photo4.jpg",
-            //    "photo5.jpg"
-
-            //};
-
-            //    ImagepathList.Add("photo1.jpg");
-            //    ImagepathList.Add("photo2.jpg");
-            //    ImagepathList.Add("photo3.jpg");
-            //    ImagepathList.Add("photo4.jpg");
-            //    ImagepathList.Add("photo5.jpg");
-
-
 
             List<string> _lmagepathList = new List<string>();
 
@@ -69,7 +46,6 @@ namespace ImagesWithStudents.Pages
 
             }
             return _lmagepathList;
-
 
         }
     }
