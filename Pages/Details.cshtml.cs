@@ -1,20 +1,37 @@
+using ImagesWithStudents.Model;
+using ImagesWithStudents.Operations;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ImagesWithStudents.Pages
 {
+
     public class DetailsModel : PageModel
     {
-        //holds the selected image path
-        public string? ImagePath { get; set; }
 
-        //a list of all images in the wwwroot/images folder
-        public List<string> ImagepathList = new List<string>();
+        //all the staff in a list
+        //[BindProperty]
+        public SelectList Staff { get; set; }
+
+        //selected stamm member with all details
+
+        [BindProperty]
+        public PersonDetails? SelectedStaff { get; set; }
+
+        [BindProperty]
+        public int SelectedStaffId { get; set; }
+
 
 
         //run before loading the page to generate the elements in the page. First time the page is loaded, it will run the OnGet method
         public void OnGet()
         {
-            ImagepathList = _loadImages();
+
+            SelectedStaff = new PersonDetails();
+
+            _loadImages();
         }
 
         //ctor runs when the class is accessed
@@ -22,30 +39,26 @@ namespace ImagesWithStudents.Pages
         //run after the page is loaded or when the form is submitted
         public void OnPost()
         {
-            ImagepathList = _loadImages();
+            foreach (var item in StaticPersonDetails.StaticAllStaff)
+            {
+                if (item.Id == SelectedStaffId)
+                {
+                    SelectedStaff.Id = item.Id;
+                    SelectedStaff.Name = item.Name;
+                    SelectedStaff.Age = item.Age;
+                    SelectedStaff.ImagePath = item.ImagePath;
+                    SelectedStaff.Occupation = item.Occupation;
+                    SelectedStaff.MobileNumber = item.MobileNumber;
+                }
+            }
+            _loadImages();
         }
 
-        private List<string> _loadImages()
+        //this is why we use a select list.
+        private void _loadImages()
         {
+            Staff = new SelectList(StaticPersonDetails.StaticAllStaff, nameof(PersonDetails.Id), nameof(PersonDetails.Name), null);
 
-            List<string> _lmagepathList = new List<string>();
-
-
-            // Get the path to the wwwroot folder
-            string _wwwrootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
-
-            // Get all files in the wwwroot folder
-            string[] allFiles = Directory.GetFiles(_wwwrootPath, "*.*", SearchOption.AllDirectories);
-
-            foreach (var item in allFiles)
-            {
-                // string _fileName = Path.GetFileName(item);
-
-                string fileName = Path.GetRelativePath("wwwroot\\images", item); //this works as well.
-                _lmagepathList.Add(fileName);
-
-            }
-            return _lmagepathList;
 
         }
     }

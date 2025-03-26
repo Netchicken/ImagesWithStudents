@@ -15,8 +15,8 @@
         <form method="post" action="">
 
             I want to see:
-            <select asp-for="ImagePath" asp-items="@(new SelectList(Model.ImagepathList))">
-                <option selected="selected" value="">Select a face</option>
+            <select asp-for="@Model.SelectedStaffId" asp-items="@Model.Staff">
+                <option selected="selected" value="">Select a Person</option>
             </select>
 
             <input type="submit" value="Submit" />
@@ -24,9 +24,18 @@
         </form>
     </div>
     <div class="card-footer">
-        <h3>The generated face</h3>
+        <h3>The persons Details</h3>
         <div class="row">
-            <img src="~/images/@Model.ImagePath" class="card-img-top img-fluid img-thumbnail rounded mx-auto d-block" />
+
+            @if (Model.SelectedStaff.Name != null)
+            {
+                <p class="card-text">Name  @Model.SelectedStaff.Name </p>
+                <p class="card-text">Age @Model.SelectedStaff.Age</p>
+                <p class="card-text">Occupation @Model.SelectedStaff.Occupation</p>
+                <p class="card-text">Mobile Number @Model.SelectedStaff.MobileNumber</p>
+                <img src="~/images/@Model.SelectedStaff.ImagePath" class="card-img-top img-fluid img
+thumbnail rounded mx-auto d-block" />
+            }
         </div>
     </div>
 </div>

@@ -33,7 +33,7 @@ namespace ImagesWithStudents.Pages
         private List<string> _loadImages()
         {
 
-            //    ImagepathList = new List<string>()
+            //ImagepathList = new List<string>()
             //{
             //    "photo1.jpg",
             //    "photo2.jpg",
