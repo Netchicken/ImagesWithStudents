@@ -13,7 +13,7 @@ namespace ImagesWithStudents.Pages
 
         //all the staff in a list
         //[BindProperty]
-        public SelectList Staff { get; set; }
+        public SelectList? Staff { get; set; }
 
         //selected stamm member with all details
 
